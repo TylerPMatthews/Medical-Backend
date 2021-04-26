@@ -75,15 +75,8 @@ exports.up = async (knex) => {
     .createTable("product_inventory", (users) => {
       users.increments("inventory_id");
       users.integer("inventory_count").notNullable();
-      users
-        .integer("item_id")
-        .unsigned()
-        .notNullable()
-        .references("item_id")
-        .inTable("product_items")
-        .onDelete("CASCADE");
     })
-    .dropTableIfExists("view_products", (users) => {
+    .createTable("view_products", (users) => {
       users.increments("view_product_id");
       users
         .integer("company_id")

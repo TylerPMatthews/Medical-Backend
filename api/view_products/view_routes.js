@@ -20,6 +20,15 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.post("/type", async (req,res,next)=>{
+  try{
+    const rows = await User.findBy(req.body)
+    res.status(200).json(rows)
+  } catch(e){
+    next(e)
+  }
+})
+
 router.get("/:id", async (req, res, next) => {
   try {
     const rows = await User.getByID(req.params.id);

@@ -1,7 +1,22 @@
 const db = require("../../api/data/db-config");
 
 const getAll = () => {
-  return db("view_products");
+  return db("view_products as vp")
+    .join("product_companys as pc", "pc.company_id", "vp.company_id")
+    .join("product_items as pi", "pi.item_id", "vp.item_id")
+    .join("product_inventory as pii", "pii.inventory_id", "vp.inventory_id")
+    .select(
+      "pc.company_name",
+      "pi.item_id",
+      "pi.item_name",
+      "pi.item_price",
+      "pi.item_type",
+      "pi.item_img",
+      "pi.item_thc",
+      "pi.item_cbd",
+      "pi.item_description",
+      "pii.inventory_count"
+    );
 };
 
 const getByID = (id) => {
@@ -21,7 +36,23 @@ const remove = (id) => {
 };
 
 const findBy = (filter) => {
-  return db("view_products").where(filter);
+  return db("view_products as vp")
+  .join("product_companys as pc", "pc.company_id", "vp.company_id")
+  .join("product_items as pi", "pi.item_id", "vp.item_id")
+  .join("product_inventory as pii", "pii.inventory_id", "vp.inventory_id")
+  .where(filter)
+  .select(
+    "pc.company_name",
+    "pi.item_id",
+    "pi.item_name",
+    "pi.item_price",
+    "pi.item_type",
+    "pi.item_img",
+    "pi.item_thc",
+    "pi.item_cbd",
+    "pi.item_description",
+    "pii.inventory_count"
+  );
 };
 module.exports = {
   getAll,
