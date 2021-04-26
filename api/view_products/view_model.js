@@ -4,7 +4,6 @@ const getAll = () => {
   return db("view_products as vp")
     .join("product_companys as pc", "pc.company_id", "vp.company_id")
     .join("product_items as pi", "pi.item_id", "vp.item_id")
-    .join("product_inventory as pii", "pii.inventory_id", "vp.inventory_id")
     .select(
       "pc.company_name",
       "pi.item_id",
@@ -15,7 +14,6 @@ const getAll = () => {
       "pi.item_thc",
       "pi.item_cbd",
       "pi.item_description",
-      "pii.inventory_count"
     );
 };
 
@@ -39,7 +37,6 @@ const findBy = (filter) => {
   return db("view_products as vp")
   .join("product_companys as pc", "pc.company_id", "vp.company_id")
   .join("product_items as pi", "pi.item_id", "vp.item_id")
-  .join("product_inventory as pii", "pii.inventory_id", "vp.inventory_id")
   .where(filter)
   .select(
     "pc.company_name",
@@ -51,7 +48,6 @@ const findBy = (filter) => {
     "pi.item_thc",
     "pi.item_cbd",
     "pi.item_description",
-    "pii.inventory_count"
   );
 };
 module.exports = {

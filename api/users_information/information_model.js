@@ -10,15 +10,15 @@ const getByID = (id) => {
 };
 //Post a new users information to DB
 const post = (data) => {
-  return db("users_information").insert(data).returning("users_information_id");
+  return db("users_information").insert(data).returning("information_id");
 };
 //Edit a users information in DB by ID
 const edit = (id, changes) => {
-  return db("users_information").where("users_information_id", id).update(changes);
+  return db("users_information").where("information_id", id).update(changes).returning("information_id")
 };
 //Remove a users information from DB by ID
 const remove = (id) => {
-  return db("users_information").where("users_information_id", id).del();
+  return db("users_information").where("information_id", id).del();
 };
 //Find a users information in DB by filter
 const findBy = (filter) => {

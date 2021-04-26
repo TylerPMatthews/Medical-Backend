@@ -15,13 +15,18 @@ exports.up = async (knex) => {
       users.string("information_phone", 200);
       users.date("information_birthdate").notNullable();
       users.string("information_medical_id", 200).notNullable();
+      users
+      .integer("user_id")
+      .unsigned()
+      .notNullable()
+      .references("user_id")
+      .inTable("users")
+      .onDelete("CASCADE");
     })
     .createTable("users_orders", (users) => {
       users.increments("order_id");
       users.specificType("order_product_names", "text[]");
       users.integer("order_price");
-      users.time("order_time");
-      users.date("order_date");
       users
         .integer("user_id")
         .unsigned()
@@ -72,10 +77,7 @@ exports.up = async (knex) => {
       users.integer("item_cbd");
       users.text("item_description");
     })
-    .createTable("product_inventory", (users) => {
-      users.increments("inventory_id");
-      users.integer("inventory_count").notNullable();
-    })
+
     .createTable("view_products", (users) => {
       users.increments("view_product_id");
       users
@@ -92,13 +94,6 @@ exports.up = async (knex) => {
         .references("item_id")
         .inTable("product_items")
         .onDelete("CASCADE");
-      users
-        .integer("inventory_id")
-        .unsigned()
-        .notNullable()
-        .references("inventory_id")
-        .inTable("product_inventory")
-        .onDelete("CASCADE");
     });
 };
 
@@ -110,6 +105,5 @@ exports.down = async (knex) => {
     .dropTableIfExists("admin_orders")
     .dropTableIfExists("product_companys")
     .dropTableIfExists("product_items")
-    .dropTableIfExists("product_inventory")
     .dropTableIfExists("view_products");
 };

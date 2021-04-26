@@ -7,7 +7,6 @@ const Userinformation = require("./users_information/information_routes");
 const UserOrder = require("./users_orders/orders_routes");
 const ProductCompanies = require("./product_companies/company_routes");
 const ProductItems = require("./product_items/item_routes");
-const ProductInventory = require("./product_inventory/product_routes");
 const ViewProducts = require("./view_products/view_routes");
 const server = express();
 server.use(express.json());
@@ -16,9 +15,6 @@ server.use(cors());
 
 //View products
 server.use("/viewproducts", ViewProducts);
-
-//Product inventory
-server.use("/product/inventory", ProductInventory);
 
 //Product items
 server.use("/product/items", ProductItems);
